@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+echo "Syncing README file table before push..."
+node scripts/updateReadme.js
+
+if git diff --quiet README.md; then
+  echo "README.md is already in sync."
+  exit 0
+fi
+
+git add README.md
+git commit --amend --no-edit
+
+echo "README.md regenerated and amended into the latest commit."
